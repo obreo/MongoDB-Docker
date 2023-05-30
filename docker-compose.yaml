@@ -1,0 +1,31 @@
+version: '3'
+services:
+  app:                                  # Container label upon installation
+    image: ${docker-registry}/app:1.0   # Your docker image URL uploaded in ECR
+    ports:
+      - 3000:3000                       # The ports you want to link to the container as of Host-port:Docker-Port
+      
+  # Second containter
+  mongodb:                              
+    image: mongo                        
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:                            # Setting a volume storage that will store the database data in the container's and link it to a volume in the host.
+      - mongo-data:/data/db             # Name_of_host_volume:Directory_in_Container's_virtual_host
+ 
+ # Second containter
+  mongo-express:
+    image: mongo-express
+    restart: always                     # It assures the connectivity between the database and the database's interface
+    ports:
+      - 8080:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin           # Database's username identified earlier
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password        # Database's password
+      - ME_CONFIG_MONGODB_SERVER=mongodb                # Here's where you link the container with the databse by specifying the container's name.
+volumes:                                # This creates a local volume storage that syncs the data in the container to ' mongo-data' in the local host and vice vera.
+  mongo-data:
+    driver: local
