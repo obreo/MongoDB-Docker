@@ -3,6 +3,8 @@ JS page connected to MongoDB container
 
 ### This is a demonstration for created a Javascript container and connecting it with Mongo database through docker-compose.
 
+This turorial is based on the following docker course: https://www.youtube.com/watch?v=3c-iBn73dDE&list=PL8Cv29YkJcM_zGxPxDufx7prF_t0PyZtl
+
 Requirements:
 1. Docker engine
 2. Mongo engine
